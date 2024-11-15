@@ -1,97 +1,74 @@
 ---
-title: 'Development'
-description: 'Learn how to preview changes locally'
+title: "Model Management Overview"
+description: "Learn how to manage your model on AI8"
 ---
 
-<Info>
-  **Prerequisite**: Please install Node.js (version 19 or higher) before proceeding.
-</Info>
+## Table of Contents
 
-Step 1. Install Mintlify on your OS:
+* [Overview](#overview)
 
-<CodeGroup>
+* [Using the Model Page](#using-the-model-page)
 
-```bash npm
-npm i -g mintlify
-```
+* [Using the Model Details Page](#using-the-model-details-page)
 
-```bash yarn
-yarn global add mintlify
-```
+* [Key Features](#key-features)
 
-</CodeGroup>
+## Overview
 
-Step 2. Go to the docs are located (where you can find `mint.json`) and run the following command:
+The **Model Details Page** allows you to view detailed information about a specific model, edit its properties, and test the model in a playground environment.
 
-```bash
-mintlify dev
-```
+## Using the Model Details Page
 
-The documentation website is now available at `http://localhost:3000`.
+**Accessing Model Details**: Click on a model from the Dashboard to view its details.
 
-### Custom Ports
+<Card title="The Model Script" icon="code">
+  The model script allows you to create custom paths for your model. For a quick start, querying a model looks like this:
 
-Mintlify uses port 3000 by default. You can use the `--port` flag to customize the port Mintlify runs on. For example, use this command to run in port 3333:
+  ```python Model.ai8
+      response = query("gpt-4o-mini", prompt)
+  ```
 
-```bash
-mintlify dev --port 3333
-```
+  <Note>Make sure you always set the variable `response`, otherwise, we won't be able to extract the response from your script</Note>
+  <Tip>The prompt variable is automatically inside your code.</Tip>
+  You can also make more complex paths for your model:
 
-You will see an error like this if you try to run Mintlify in a port that's already taken:
+  ```python SafeAnswer.ai8
+      securityCheck = query("gpt-4o-mini", prompt.add("Is this a security related question:\n", "start", "last").add("Answer in 'Yes' or 'No' only"))
+      if(securityCheck.lower() == 'yes'):
+        
+  ```
+</Card>
 
-```md
-Error: listen EADDRINUSE: address already in use :::3000
-```
+1. **Test the Model**:
 
-## Mintlify Versions
+   * Click the **Try in Playground** button to open the playground modal.
 
-Each CLI is linked to a specific version of Mintlify. Please update the CLI if your local website looks different than production.
+   * Input your system instructions and user prompts.
 
-<CodeGroup>
+   * Click **Run** to execute the model and view the output.
 
-```bash npm
-npm i -g mintlify@latest
-```
+2. **View Usage Statistics**: The page displays the number of requests and credits consumed by the model.
 
-```bash yarn
-yarn global upgrade mintlify
-```
+## Key Features
 
-</CodeGroup>
+### Model Page (`model.html`)
 
-## Deployment
+* **Search Functionality**: Quickly find models by name.
 
-<Tip>
-  Unlimited editors available under the [Pro
-  Plan](https://mintlify.com/pricing) and above.
-</Tip>
+* **Create New Model**: Easily add new models with a user-friendly modal.
 
-You should see the following if the deploy successfully went through:
+* **User Models Table**: View all models with relevant details.
 
-<Frame>
-  <img src="/images/checks-passed.png" style={{ borderRadius: '0.5rem' }} />
-</Frame>
+### Model Details Page (`modeldetails.js`)
 
-## Troubleshooting
+* **Detailed Model Information**: View and edit model properties.
 
-Here's how to solve some common problems when working with the CLI.
+* **Interactive Script Editor**: Create and modify model scripts in real-time.
 
-<AccordionGroup>
-  <Accordion title="Mintlify is not loading">
-    Update to Node v18. Run `mintlify install` and try again.
-  </Accordion>
-  <Accordion title="No such file or directory on Windows">
-Go to the `C:/Users/Username/.mintlify/` directory and remove the `mint`
-folder. Then Open the Git Bash in this location and run `git clone
-https://github.com/mintlify/mint.git`.
+* **Playground for Testing**: Test models with a simulated environment.
 
-Repeat step 3.
+* **Usage Statistics**: Monitor model performance and credit consumption.
 
-  </Accordion>
-  <Accordion title="Getting an unknown error">
-    Try navigating to the root of your device and delete the ~/.mintlify folder.
-    Then run `mintlify dev` again.
-  </Accordion>
-</AccordionGroup>
+***
 
-Curious about what changed in a CLI version? [Check out the CLI changelog.](/changelog/command-line)
+By following this guide, users can effectively manage their models using the provided interfaces. For any further assistance, please refer to the documentation or contact support.
